@@ -6,7 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 import com.example.customviews.utils.getChihuahua
 
 /**
@@ -15,15 +15,15 @@ import com.example.customviews.utils.getChihuahua
 
 private const val text =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices volutpat augue eget ultricies. Mauris aliquam erat quis sapien placerat molestie. Vestibulum non libero varius dui mollis tempor. Vestibulum consectetur hendrerit malesuada. In hac habitasse platea dictumst. Fusce sed ante quis dui malesuada volutpat quis pellentesque est. Sed posuere magna eget libero venenatis maximus. Nunc dolor ipsum, mattis aliquet urna vitae, iaculis lobortis arcu. Nunc efficitur risus porttitor nulla laoreet aliquet. Nunc nulla diam, venenatis sit amet tempus a, vestibulum eu elit. Mauris ac arcu at enim aliquet accumsan eget vitae arcu. Pellentesque pellentesque mi eros, quis aliquam quam sodales sed."
-private val topPadding = 105.dp2px
-private val photoHeight = 120.dp2px
+private val topPadding = 105.dp
+private val photoHeight = 120.dp
 
 class MultilineTextView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val fontMetrics = Paint.FontMetrics()
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = 20.dp2px
+        textSize = 20.dp
     }
 
     @SuppressLint("DrawAllocation")

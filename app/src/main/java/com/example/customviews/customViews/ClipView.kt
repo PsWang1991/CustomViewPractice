@@ -4,18 +4,18 @@ import android.content.Context
 import android.graphics.Camera
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.graphics.withSave
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 import com.example.customviews.utils.getChihuahua
 
 /**
  * Created by PS Wang on 2022/4/15
  */
 
-
-private val photoOrigin = Point(100.dp2px, 150.dp2px)
+private val photoOrigin = PointF(100.dp, 150.dp)
 private const val clipExtension = 200
 
 class ClipView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -37,7 +37,7 @@ class ClipView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    private val chihuahua = getChihuahua(resources, 150.dp2px.toInt())
+    private val chihuahua = getChihuahua(resources, 150.dp.toInt())
 
     private val camera = Camera().apply {
         setLocation(0f, 0f, -5 * resources.displayMetrics.density)

@@ -1,13 +1,10 @@
 package com.example.customviews.customViews
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -15,8 +12,8 @@ import kotlin.math.sin
  * Created by PS Wang on 2022/4/10
  */
 
-private val radius = 100f.dp2px
-private val origin = Point(200f.dp2px, 200f.dp2px)
+private val radius = 100f.dp
+private val origin = PointF(200f.dp, 200f.dp)
 private val arcs = listOf(45f, 30f, 80f, 120f, 25f, 60f)
 private val colors = listOf(Color.BLUE,
     Color.GREEN,
@@ -24,7 +21,7 @@ private val colors = listOf(Color.BLUE,
     Color.CYAN,
     Color.YELLOW,
     Color.parseColor("#B09422"))
-private val offSet = 20f.dp2px
+private val offSet = 20f.dp
 private const val witchToOffset = 4
 
 class PieView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {

@@ -6,10 +6,10 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 
 class CircleView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
-    var radius = 50.dp2px
+    var radius = 50.dp
     set(value) {
         field = value
         invalidate()

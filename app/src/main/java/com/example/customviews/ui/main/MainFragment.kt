@@ -1,17 +1,13 @@
 package com.example.customviews.ui.main
 
-import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.customviews.R
+import androidx.fragment.app.Fragment
+import com.example.customviews.customViews.FoodEvaluator
 import com.example.customviews.databinding.MainFragmentBinding
-import com.example.customviews.utils.dp2px
 
 class MainFragment : Fragment() {
 
@@ -26,7 +22,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
         _binding = MainFragmentBinding.inflate(inflater, container, false)
@@ -38,34 +34,34 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        binding.chihuahua.animate()
-//            .translationX(100.dp2px)
-//            .translationY(200.dp2px).startDelay = 1000
+//            .translationX(100.dp)
+//            .translationY(200.dp).startDelay = 1000
 
-//        val animator = ObjectAnimator.ofFloat(binding.chihuahua, "radius", 100.dp2px)
+//        val animator = ObjectAnimator.ofFloat(binding.chihuahua, "radius", 100.dp)
 //        animator.startDelay = 1000
 //        animator.start()
 
-        val upperFlipAnimator =
-            ObjectAnimator.ofFloat(binding.chihuahua, "cameraRotateXUpper", 60f).apply {
-                startDelay = 1000
-                duration = 2000
-            }
-
-        val flipRotationAnimator =
-            ObjectAnimator.ofFloat(binding.chihuahua, "canvasRotate", 270f).apply {
-                startDelay = 1500
-                duration = 1500
-            }
-
-        val downerFlipAnimator =
-            ObjectAnimator.ofFloat(binding.chihuahua, "cameraRotateXDowner", -60f).apply {
-                startDelay = 1000
-                duration = 2000
-            }
-
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(upperFlipAnimator, flipRotationAnimator, downerFlipAnimator)
-        animatorSet.start()
+//        val upperFlipAnimator =
+//            ObjectAnimator.ofFloat(binding.chihuahua, "upperFlipAngle", -45f).apply {
+//                startDelay = 500
+//                duration = 1000
+//            }
+//
+//        val downerFlipAnimator =
+//            ObjectAnimator.ofFloat(binding.chihuahua, "downerFlipAngle", 30f).apply {
+//                startDelay = 300
+//                duration = 1000
+//            }
+//
+//        val flipRotationAnimator =
+//            ObjectAnimator.ofFloat(binding.chihuahua, "flipRotationAngle", -270f).apply {
+//                startDelay = 300
+//                duration = 1500
+//            }
+//
+//        val animatorSet = AnimatorSet()
+//        animatorSet.playSequentially(upperFlipAnimator, flipRotationAnimator, downerFlipAnimator)
+//        animatorSet.start()
 
 //        val upperFlipHolder = PropertyValuesHolder.ofFloat("cameraRotateXUpper", 60f)
 //        val flipRotationHolder = PropertyValuesHolder.ofFloat("canvasRotate", 270f)
@@ -81,6 +77,23 @@ class MainFragment : Fragment() {
 //            duration = 2000
 //            start()
 //        }
+
+//        val pointAnimator = ObjectAnimator.ofObject(binding.chihuahua,
+//            "position",
+//            PointTypeEvaluator(),
+//            PointF(150.dp, 240.dp))
+//        pointAnimator.apply {
+//            startDelay = 1000
+//            duration = 2000
+//            start()
+//        }
+
+        ObjectAnimator.ofObject(binding.chihuahua, "food", FoodEvaluator(), "刺身").apply {
+            duration = 10000
+            startDelay = 500
+            start()
+        }
+
 
     }
 

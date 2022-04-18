@@ -3,9 +3,8 @@ package com.example.customviews.customViews
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 
 /**
  * Created by PS Wang on 2022/4/10
@@ -15,9 +14,9 @@ private val circleBackgroundColor = Color.parseColor("#C4C4C4")
 private val circleColor = Color.parseColor("#6489FF")
 private val textColor = Color.parseColor("#64FF89")
 
-private val radius = 140.dp2px
-private val circleLineWidth = 25.dp2px
-private val yOffset = 0.dp2px
+private val radius = 140.dp
+private val circleLineWidth = 25.dp
+private val yOffset = 0.dp
 
 private const val text2Draw = "abab"
 
@@ -25,19 +24,19 @@ private const val progressRate = 0.64f
 
 class SportView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private lateinit var origin: Point
+    private lateinit var origin: PointF
     private lateinit var circularProgress: RectF
 
     private val bounds = Rect()
     private val fontMetrics = Paint.FontMetrics()
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = 100.dp2px
+        textSize = 100.dp
         textAlign = Paint.Align.CENTER
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        origin = Point((w / 2).toFloat(), (h / 2).toFloat() - yOffset)
+        origin = PointF((w / 2).toFloat(), (h / 2).toFloat() - yOffset)
         circularProgress = RectF(
             origin.x - radius,
             origin.y - radius,

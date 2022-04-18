@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -12,15 +12,16 @@ import kotlin.math.sin
  * Created by PS Wang on 2022/4/9
  */
 
-private val radius = 100f.dp2px
-private val origin = Point(200f.dp2px, 200f.dp2px)
+private val radius = 100f.dp
+private val origin = PointF(200f.dp, 200f.dp)
 private const val openAngle = 90f
 private const val scaleLineWidth = 3f
-private val scaleLineLength = 15f.dp2px
+private val scaleLineLength = 15f.dp
 private const val divider = 20f
 private val pointerLength = radius - scaleLineLength - 15f
 private const val pointerAt = 14f
-private val pointerAngle = Math.toRadians((90f + openAngle / 2f + pointerAt * (360f - openAngle) / divider).toDouble())
+private val pointerAngle =
+    Math.toRadians((90f + openAngle / 2f + pointerAt * (360f - openAngle) / divider).toDouble())
 
 class CustomView1(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
@@ -36,7 +37,7 @@ class CustomView1(context: Context?, attrs: AttributeSet?) :
             addRect(0f, 0f, scaleLineWidth, scaleLineLength, Path.Direction.CW)
         }
         paint.apply {
-            strokeWidth = 2f.dp2px
+            strokeWidth = 2f.dp
             style = Paint.Style.STROKE
         }
     }

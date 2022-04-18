@@ -4,16 +4,15 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import com.example.customviews.R
-import com.example.customviews.utils.dp2px
+import com.example.customviews.utils.dp
 
 /**
  * Created by PS Wang on 2022/4/10
  */
 
-private val boundSize = 300f.dp2px
-private val origin = Point(200f.dp2px, 100f.dp2px)
-private val radius = 70f.dp2px
+private val boundSize = 300f.dp
+private val origin = PointF(200f.dp, 100f.dp)
+private val radius = 70f.dp
 private val xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
 
 class XfermodeView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -21,8 +20,10 @@ class XfermodeView(context: Context?, attrs: AttributeSet?) : View(context, attr
     private val paint = Paint()
     private val bounds = RectF(0f, 0f, boundSize, boundSize)
 
-    private val circleBitmap = Bitmap.createBitmap(boundSize.toInt(), boundSize.toInt(), Bitmap.Config.ARGB_8888)
-    private val rectBitmap = Bitmap.createBitmap(boundSize.toInt(), boundSize.toInt(), Bitmap.Config.ARGB_8888)
+    private val circleBitmap =
+        Bitmap.createBitmap(boundSize.toInt(), boundSize.toInt(), Bitmap.Config.ARGB_8888)
+    private val rectBitmap =
+        Bitmap.createBitmap(boundSize.toInt(), boundSize.toInt(), Bitmap.Config.ARGB_8888)
 
     init {
         val canvas = Canvas(circleBitmap)
