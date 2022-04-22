@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import com.example.customviews.databinding.MainFragmentBinding
+import kotlinx.coroutines.delay
 
 class MainFragment : Fragment() {
 
@@ -95,9 +97,8 @@ class MainFragment : Fragment() {
 //            start()
 //        }
 
-        val bitmap = Bitmap.createBitmap(20, 20, Bitmap.Config.ARGB_8888)
-        bitmap.toDrawable(resources).toBitmap()
-
+//        val bitmap = Bitmap.createBitmap(20, 20, Bitmap.Config.ARGB_8888)
+//        bitmap.toDrawable(resources).toBitmap()
 
     }
 
