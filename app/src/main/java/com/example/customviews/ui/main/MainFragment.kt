@@ -1,12 +1,13 @@
 package com.example.customviews.ui.main
 
-import android.animation.ObjectAnimator
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
-import com.example.customviews.customViews.FoodEvaluator
 import com.example.customviews.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
@@ -88,11 +89,14 @@ class MainFragment : Fragment() {
 //            start()
 //        }
 
-        ObjectAnimator.ofObject(binding.chihuahua, "food", FoodEvaluator(), "刺身").apply {
-            duration = 10000
-            startDelay = 500
-            start()
-        }
+//        ObjectAnimator.ofObject(binding.chihuahua, "food", FoodEvaluator(), "刺身").apply {
+//            duration = 10000
+//            startDelay = 500
+//            start()
+//        }
+
+        val bitmap = Bitmap.createBitmap(20, 20, Bitmap.Config.ARGB_8888)
+        bitmap.toDrawable(resources).toBitmap()
 
 
     }
