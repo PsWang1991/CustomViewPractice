@@ -16,8 +16,20 @@ private val PADDING = 30.dp
 private val RADIUS = 50.dp
 
 class FixedCircleView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.parseColor("#777777")
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val size = (2f * (PADDING + RADIUS)).toInt()
+
+        val width = resolveSize(size, widthMeasureSpec)
+        val height = resolveSize(size, heightMeasureSpec)
+
+        setMeasuredDimension(width, height)
     }
 
     override fun onDraw(canvas: Canvas) {

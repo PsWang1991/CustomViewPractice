@@ -3,23 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:clipChildren="false">
+    android:orientation="vertical">
 
-    <com.example.customviews.customViews.SquareImageView
+    <com.example.customviews.customViews.FixedCircleView
         android:id="@+id/chihuahua"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
-        android:src="@drawable/chihuahua_square"
-        android:scaleType="centerCrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#576464F8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="300dp"
-        android:background="#000"
-        android:layout_height="300dp"/>
+        android:layout_height="300dp"
+        android:background="#000" />
 
 </LinearLayout>
