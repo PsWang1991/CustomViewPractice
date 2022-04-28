@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.example.customviews.customLayouts.TagLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.customviews.customViews.FixedCircleView
-        android:id="@+id/chihuahua"
+    <com.example.customviews.customViews.RandomStyleTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#576464F8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="chill" />
 
-    <View
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="#000" />
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flow" />
 
-</LinearLayout>
+</com.example.customviews.customLayouts.TagLayout>
