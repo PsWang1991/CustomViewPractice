@@ -23,9 +23,9 @@ val Int.dp: Float
 fun getChihuahua(resources: Resources, height: Int): Bitmap {
     val options = BitmapFactory.Options()
     options.inJustDecodeBounds = true
-    BitmapFactory.decodeResource(resources, R.drawable.chihuahua, options)
+    BitmapFactory.decodeResource(resources, R.drawable.chihuahua_square, options)
     options.inJustDecodeBounds = false
     options.inDensity = options.outHeight
     options.inTargetDensity = height
-    return BitmapFactory.decodeResource(resources, R.drawable.chihuahua, options)
+    return BitmapFactory.decodeResource(resources, R.drawable.chihuahua_square, options)
 }
