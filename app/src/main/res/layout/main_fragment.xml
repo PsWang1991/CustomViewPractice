@@ -1,15 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.example.customviews.customLayouts.TagLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
 
-    <com.example.customviews.customViews.ScalableImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="flow" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="relax" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="school" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pencil" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="paper" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ruler" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="color" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="table" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chair" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="black board" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sofa" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="water" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="earth" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jam" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="one two three four five six seven eight" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chocolate" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="blueberry" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="restroom" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="one two three four" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alley" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wind" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="metal" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lamp" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="amplifier" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chip" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="steak" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="golden retriever" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="electron" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atom" />
+
+    <com.example.customviews.customViews.RandomStyleTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="one two three four" />
+
+</com.example.customviews.customLayouts.TagLayout>

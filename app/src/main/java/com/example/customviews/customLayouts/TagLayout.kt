@@ -1,10 +1,12 @@
 package com.example.customviews.customLayouts
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.ViewGroup
 import androidx.core.view.children
+import kotlin.math.max
 
 /**
  * Created by PS Wang on 2022/4/28
@@ -13,27 +15,56 @@ class TagLayout(context: Context, attrs: AttributeSet) : ViewGroup(context, attr
 
     private val childrenBounds = mutableListOf<Rect>()
 
+    @SuppressLint("DrawAllocation")
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
-        val widthSpecMode = MeasureSpec.getMode(widthMeasureSpec)
-        val widthSpecSize = MeasureSpec.getSize(widthMeasureSpec)
+        val layoutSpecWidth = MeasureSpec.getSize(widthMeasureSpec)
+        val layoutSpecMode = MeasureSpec.getMode(widthMeasureSpec)
 
-        var usedWidth = 0
+        var widthUsed = 0
+        var heightUsed = 0
+
+        var maxLineWidth = 0
+        var maxLineHeight = 0
 
         children.forEachIndexed { index, child ->
 
-//            val childLayoutParams = child.layoutParams
-//
-//            measureChildWithMargins(child, widthMeasureSpec, widthUsed, heightMeasureSpec, heightUsed)
-//
-//            child.measure(childWidthSpec, childHeightSpec)
-//
-//            val childBounds = childrenBounds[index]
-//            childBounds.set(?, ?, ?, ?)
+            measureChildWithMargins(child,
+                widthMeasureSpec,
+                0,
+                heightMeasureSpec,
+                heightUsed)
+
+            if (layoutSpecMode != MeasureSpec.UNSPECIFIED && widthUsed + child.measuredWidth > layoutSpecWidth) {
+                widthUsed = 0
+                heightUsed += maxLineHeight
+                maxLineHeight = 0
+
+                measureChildWithMargins(child,
+                    widthMeasureSpec,
+                    0,
+                    heightMeasureSpec,
+                    heightUsed)
+            }
+
+            if (index >= childrenBounds.size) {
+                childrenBounds.add(Rect())
+            }
+            val childBounds = childrenBounds[index]
+            childBounds.set(
+                widthUsed,
+                heightUsed,
+                widthUsed + child.measuredWidth,
+                heightUsed + child.measuredHeight)
+
+            widthUsed += child.measuredWidth
+            maxLineWidth = max(widthUsed, maxLineWidth)
+            maxLineHeight = max(maxLineHeight, child.measuredHeight)
+
         }
 
-        val selfWidth = 0
-        val selfHeight = 0
+        val selfWidth = maxLineWidth
+        val selfHeight = heightUsed + maxLineHeight
 
         setMeasuredDimension(selfWidth, selfHeight)
 
@@ -44,5 +75,9 @@ class TagLayout(context: Context, attrs: AttributeSet) : ViewGroup(context, attr
             val bound = childrenBounds[index]
             child.layout(bound.left, bound.top, bound.right, bound.bottom)
         }
+    }
+
+    override fun generateLayoutParams(attrs: AttributeSet): LayoutParams {
+        return MarginLayoutParams(context, attrs)
     }
 }
