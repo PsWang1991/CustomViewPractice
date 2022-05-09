@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.OverScroller
 import androidx.core.view.GestureDetectorCompat
@@ -25,6 +26,9 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
 
     private val simpleOnGestureListener = SimpleOnGestureListener()
     private val gestureDetector = GestureDetectorCompat(context, simpleOnGestureListener)
+
+    private val scaleGestureListener = ScaleGestureListener()
+    private val scaleGestureDetector = ScaleGestureDetector(context, scaleGestureListener)
 
     private val innerRunnable = InnerRunnable()
 
@@ -163,6 +167,20 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
                 invalidate()
                 ViewCompat.postOnAnimation(this@ScalableImageView, this)
             }
+        }
+    }
+
+    class ScaleGestureListener: ScaleGestureDetector.OnScaleGestureListener {
+        override fun onScale(detector: ScaleGestureDetector?): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun onScaleBegin(detector: ScaleGestureDetector?): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector) {
+
         }
     }
 }
