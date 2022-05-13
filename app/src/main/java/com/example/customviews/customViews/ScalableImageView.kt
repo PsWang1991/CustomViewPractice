@@ -8,33 +8,32 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.OverScroller
 import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.ViewCompat
 import com.example.customviews.utils.dp
 import com.example.customviews.utils.getChihuahua
+import kotlin.math.max
+import kotlin.math.min
 
-private val IMAGE_SIZE = 300.dp.toInt()
+/**
+ * Created by PS Wang on 2022/5/12
+ */
 
-private const val EXTRA_SCALE_FACTOR = 1.5f
+private val IMAGE_SIZE = 250.dp.toInt()
+private const val EXTRA_BIG_SCALE = 2.0f
 
 class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
-    private val simpleOnGestureListener = SimpleOnGestureListener()
-    private val gestureDetector = GestureDetectorCompat(context, simpleOnGestureListener)
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val bitmap = getChihuahua(resources, IMAGE_SIZE)
 
-    private val scaleGestureListener = ScaleGestureListener()
-    private val scaleGestureDetector = ScaleGestureDetector(context, scaleGestureListener)
-
-    private val innerRunnable = InnerRunnable()
+    private val gestureListener = InnerGestureListener()
+    private val gestureDetector = GestureDetectorCompat(context, gestureListener)
 
     private val scroller = OverScroller(context)
-
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    private val bitmap = getChihuahua(resources, IMAGE_SIZE)
+    private val flingRunnable = FlingRunnable()
 
     private var originalOffsetX = 0f
     private var originalOffsetY = 0f
@@ -42,42 +41,32 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
     private var offsetX = 0f
     private var offsetY = 0f
 
-    private var smallerScale = 1f
-    private var largerScale = 1f
+    private var smallScale = 1f
+    private var bigScale = 1f
 
-    private var isLargerScale = false
+    private var isBigScale = false
 
-    private var currentScale = smallerScale
+    private var currentScale = smallScale
         set(value) {
             field = value
             invalidate()
         }
 
-    private val scaleAnimator =
-        ObjectAnimator.ofFloat(this, "currentScale", smallerScale, largerScale)
-
+    private val scaleAnimator = ObjectAnimator.ofFloat(this, "currentScale", smallScale, bigScale)
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
-        originalOffsetX = (w - IMAGE_SIZE) / 2f
-        originalOffsetY = (h - IMAGE_SIZE) / 2f
-
-        if (bitmap.width / bitmap.height.toFloat() > w / h.toFloat()) {
-            smallerScale = w / bitmap.width.toFloat()
-            largerScale = h / bitmap.height.toFloat() * EXTRA_SCALE_FACTOR
-        } else {
-            smallerScale = h / bitmap.height.toFloat()
-            largerScale = w / bitmap.width.toFloat() * EXTRA_SCALE_FACTOR
-        }
-
-        currentScale = smallerScale
-        scaleAnimator.setFloatValues(smallerScale, largerScale)
+        originalOffsetX = (w - bitmap.width) / 2f
+        originalOffsetY = (h - bitmap.height) / 2f
+        smallScale = min(w / bitmap.width.toFloat(), h / bitmap.height.toFloat())
+        bigScale = max(w / bitmap.width.toFloat(), h / bitmap.height.toFloat()) * EXTRA_BIG_SCALE
+        scaleAnimator.setFloatValues(smallScale, bigScale)
+        currentScale = smallScale
     }
 
     override fun onDraw(canvas: Canvas) {
 
-        val scaleFraction = (currentScale - smallerScale) / (largerScale - smallerScale)
+        val scaleFraction = (currentScale - smallScale) / (bigScale - smallScale)
         canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction)
 
         canvas.scale(currentScale, currentScale, width / 2f, height / 2f)
@@ -86,16 +75,12 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        scaleGestureDetector.onTouchEvent(event)
-        if (!scaleGestureDetector.isInProgress) {
-            gestureDetector.onTouchEvent(event)
-        }
-        return true
+        return gestureDetector.onTouchEvent(event)
     }
 
-    inner class SimpleOnGestureListener : GestureDetector.SimpleOnGestureListener() {
 
-        override fun onDown(e: MotionEvent): Boolean {
+    inner class InnerGestureListener : GestureDetector.SimpleOnGestureListener() {
+        override fun onDown(e: MotionEvent?): Boolean {
             return true
         }
 
@@ -105,14 +90,12 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
             distanceX: Float,
             distanceY: Float,
         ): Boolean {
-
-            if (isLargerScale) {
+            if (isBigScale) {
                 offsetX -= distanceX
                 offsetY -= distanceY
-                fixOffsetByViewBounds()
+                boundOffsetInView()
                 invalidate()
             }
-
             return false
         }
 
@@ -122,44 +105,29 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
             velocityX: Float,
             velocityY: Float,
         ): Boolean {
-
-            if (isLargerScale) {
+            if (isBigScale) {
                 scroller.fling(
-                    offsetX.toInt(),
-                    offsetY.toInt(),
-                    velocityX.toInt(),
-                    velocityY.toInt(),
-                    -((bitmap.width * largerScale - width) / 2f).toInt(),
-                    ((bitmap.width * largerScale - width) / 2f).toInt(),
-                    -((bitmap.height * largerScale - height) / 2f).toInt(),
-                    ((bitmap.height * largerScale - height) / 2f).toInt(),
+                    offsetX.toInt(), offsetY.toInt(),
+                    velocityX.toInt(), velocityY.toInt(),
+                    (-(bitmap.width * bigScale - width) / 2).toInt(),
+                    ((bitmap.width * bigScale - width) / 2).toInt(),
+                    (-(bitmap.height * bigScale - height) / 2).toInt(),
+                    ((bitmap.height * bigScale - height) / 2).toInt(),
                     40.dp.toInt(),
                     40.dp.toInt()
                 )
+
+                ViewCompat.postOnAnimation(this@ScalableImageView, flingRunnable)
             }
-
-            ViewCompat.postOnAnimation(this@ScalableImageView, innerRunnable)
-
             return false
         }
 
-        private fun fixOffsetByViewBounds() {
-            offsetX = offsetX.coerceIn(
-                -(bitmap.width * largerScale - width) / 2f,
-                (bitmap.width * largerScale - width) / 2f
-            )
-            offsetY = offsetY.coerceIn(
-                -(bitmap.height * largerScale - height) / 2f,
-                (bitmap.height * largerScale - height) / 2f
-            )
-        }
-
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            isLargerScale = !isLargerScale
-            if (isLargerScale) {
-                offsetX = (e.x - width / 2) * (1 - largerScale / smallerScale)
-                offsetY = (e.y - height / 2) * (1 - largerScale / smallerScale)
-                fixOffsetByViewBounds()
+            isBigScale = !isBigScale
+            if (isBigScale) {
+                offsetX = (e.x - width / 2f) * (1 - bigScale / smallScale)
+                offsetY = (e.y - height / 2f) * (1 - bigScale / smallScale)
+                boundOffsetInView()
                 scaleAnimator.start()
             } else {
                 scaleAnimator.reverse()
@@ -168,37 +136,22 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
         }
     }
 
-    inner class InnerRunnable : Runnable {
+    inner class FlingRunnable : Runnable {
         override fun run() {
             if (scroller.computeScrollOffset()) {
                 offsetX = scroller.currX.toFloat()
                 offsetY = scroller.currY.toFloat()
+
                 invalidate()
                 ViewCompat.postOnAnimation(this@ScalableImageView, this)
             }
         }
     }
 
-    inner class ScaleGestureListener : ScaleGestureDetector.OnScaleGestureListener {
-        override fun onScale(detector: ScaleGestureDetector): Boolean {
-
-            val tempCurrentScale = currentScale * detector.scaleFactor
-            return if (tempCurrentScale > largerScale || tempCurrentScale < smallerScale) {
-                false
-            } else {
-                currentScale *= detector.scaleFactor
-                true
-            }
-
-        }
-
-        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
-            offsetX = (detector.focusX - width / 2) * (1 - largerScale / smallerScale)
-            offsetY = (detector.focusY - height / 2) * (1 - largerScale / smallerScale)
-            return true
-        }
-
-        override fun onScaleEnd(detector: ScaleGestureDetector) {
-        }
+    private fun boundOffsetInView() {
+        offsetX = offsetX.coerceIn(-(bitmap.width * bigScale - width) / 2f,
+            (bitmap.width * bigScale - width) / 2f)
+        offsetY = offsetY.coerceIn(-(bitmap.height * bigScale - height) / 2f,
+            (bitmap.height * bigScale - height) / 2f)
     }
 }
