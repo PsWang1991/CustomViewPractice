@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:ignore="HardcodedText">
 
-    <com.example.customviews.customViews.ScalableImageView
+    <com.example.customviews.customViews.MultiTouchView2
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
