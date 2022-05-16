@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.OverScroller
 import androidx.core.view.GestureDetectorCompat
@@ -31,6 +32,9 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
 
     private val gestureListener = InnerGestureListener()
     private val gestureDetector = GestureDetectorCompat(context, gestureListener)
+
+    private val scaleGestureListener = InnerScaleGestureListener()
+    private val scaleGestureDetector = ScaleGestureDetector(context, scaleGestureListener)
 
     private val scroller = OverScroller(context)
     private val flingRunnable = FlingRunnable()
@@ -75,9 +79,36 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return gestureDetector.onTouchEvent(event)
+
+        if (!scaleGestureDetector.isInProgress) {
+            gestureDetector.onTouchEvent(event)
+        }
+        scaleGestureDetector.onTouchEvent(event)
+        return true
     }
 
+    inner class InnerScaleGestureListener : ScaleGestureDetector.OnScaleGestureListener {
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            val tempScale = currentScale * detector.scaleFactor
+            return if (tempScale > bigScale || tempScale < smallScale) {
+                false
+            } else {
+                currentScale *= detector.scaleFactor
+                invalidate()
+                true
+            }
+        }
+
+        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+            offsetX = (detector.focusX - width / 2f) * (1 - bigScale / smallScale)
+            offsetY = (detector.focusY - height / 2f) * (1 - bigScale / smallScale)
+            return true
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector?) {
+        }
+
+    }
 
     inner class InnerGestureListener : GestureDetector.SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent?): Boolean {
@@ -149,9 +180,13 @@ class ScalableImageView(context: Context, attrs: AttributeSet) : View(context, a
     }
 
     private fun boundOffsetInView() {
-        offsetX = offsetX.coerceIn(-(bitmap.width * bigScale - width) / 2f,
-            (bitmap.width * bigScale - width) / 2f)
-        offsetY = offsetY.coerceIn(-(bitmap.height * bigScale - height) / 2f,
-            (bitmap.height * bigScale - height) / 2f)
+        offsetX = offsetX.coerceIn(
+            -(bitmap.width * bigScale - width) / 2f,
+            (bitmap.width * bigScale - width) / 2f
+        )
+        offsetY = offsetY.coerceIn(
+            -(bitmap.height * bigScale - height) / 2f,
+            (bitmap.height * bigScale - height) / 2f
+        )
     }
 }
