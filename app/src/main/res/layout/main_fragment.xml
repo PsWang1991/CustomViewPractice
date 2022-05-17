@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:ignore="HardcodedText">
 
-    <com.example.customviews.customViews.MultiTouchView2
+    <com.example.customviews.customViews.MultiTouchCanvasView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
