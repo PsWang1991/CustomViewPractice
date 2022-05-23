@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.customviews.customLayouts.TwoPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -7,9 +7,14 @@
     android:orientation="vertical"
     tools:ignore="HardcodedText">
 
-    <com.example.customviews.customViews.MultiTouchCanvasView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#3334A4" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F52488" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.example.customviews.customLayouts.TwoPager>
