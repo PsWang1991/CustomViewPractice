@@ -88,14 +88,33 @@ class TwoPager(context: Context, attrs: AttributeSet) : ViewGroup(context, attrs
             }
 
             MotionEvent.ACTION_MOVE -> {
-
+                val dx = (downX - event.x + downScrollX).toInt().coerceIn(0, width)
+                scrollTo(dx, 0)
             }
 
             MotionEvent.ACTION_UP -> {
+                velocityTracker.computeCurrentVelocity(1000, maxVelocity.toFloat())
+                val vx = velocityTracker.xVelocity
+                val scrollX = scrollX
+                val targetPage = if (abs(vx) < minVelocity) {
+                    if (scrollX > width / 2) 1 else 0
+                } else {
+                    if (vx < 0) 1 else 0
+                }
 
+                val scrollDistance = if (targetPage == 1) (width - scrollX) else -scrollX
+                overScroller.startScroll(getScrollX(), 0, scrollDistance, 0)
+                postInvalidateOnAnimation()
             }
         }
 
-        return super.onTouchEvent(event)
+        return true
+    }
+
+    override fun computeScroll() {
+        if (overScroller.computeScrollOffset()) {
+            scrollTo(overScroller.currX, overScroller.currY)
+            postInvalidateOnAnimation()
+        }
     }
 }
