@@ -1,20 +1,15 @@
 package com.example.customviews.ui.main
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
-import com.example.customviews.databinding.MainFragmentBinding
-import kotlinx.coroutines.delay
+import com.example.customviews.databinding.FragmentDragListenerGridViewBinding
 
 class MainFragment : Fragment() {
 
-    private var _binding: MainFragmentBinding? = null
+    private var _binding: FragmentDragListenerGridViewBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -28,7 +23,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
 
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentDragListenerGridViewBinding.inflate(inflater, container, false)
 
         return binding.root
     }
