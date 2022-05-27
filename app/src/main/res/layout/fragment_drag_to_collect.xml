@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.customviews.customLayouts.DragToCollectLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
+
+    <ImageView
+        android:id="@+id/chihuahua"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/chihuahua_square"
+        android:contentDescription="Chihuahua"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/android"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/android_symbol"
+        android:contentDescription="Android"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/collector"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#40198864"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</com.example.customviews.customLayouts.DragToCollectLayout>

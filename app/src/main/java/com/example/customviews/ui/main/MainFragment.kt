@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.customviews.databinding.FragmentDragListenerGridViewBinding
+import com.example.customviews.databinding.FragmentDragToCollectBinding
 
 class MainFragment : Fragment() {
 
-    private var _binding: FragmentDragListenerGridViewBinding? = null
+    private var _binding: FragmentDragToCollectBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -23,7 +24,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
 
-        _binding = FragmentDragListenerGridViewBinding.inflate(inflater, container, false)
+        _binding = FragmentDragToCollectBinding.inflate(inflater, container, false)
 
         return binding.root
     }
