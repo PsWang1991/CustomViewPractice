@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.customviews.customLayouts.DragToUpAndDown xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#F00" />
+
+    <LinearLayout
+        android:id="@+id/tiananmen"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:background="#64198964" >
+        <View
+            android:id="@+id/tank"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#229933" />
+    </LinearLayout>
+
+</com.example.customviews.customLayouts.DragToUpAndDown>
